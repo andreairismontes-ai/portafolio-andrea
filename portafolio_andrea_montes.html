@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrea Montes — Portafolio Profesional</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold:    #C9A84C;
+    --gold-lt: #E8D08A;
+    --black:   #0D0D0D;
+    --dark:    #1A1A1A;
+    --mid:     #2E2E2E;
+    --gray:    #6B6B6B;
+    --light:   #F7F5F0;
+    --white:   #FFFFFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--light);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── FADE IN ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.7s ease both; }
+  .delay-1 { animation-delay: 0.15s; }
+  .delay-2 { animation-delay: 0.30s; }
+  .delay-3 { animation-delay: 0.45s; }
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up { animation: none; }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 48px;
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 6px 1fr;
+    padding: 120px 48px 80px;
+    gap: 56px;
+    align-items: center;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .hero-line {
+    width: 6px;
+    height: 100%;
+    min-height: 260px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    border-radius: 3px;
+    align-self: stretch;
+  }
+  .hero-content { }
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .hero-name span { color: var(--gold); }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 400;
+    color: var(--gray);
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+  .hero-bio {
+    font-size: 1rem;
+    color: #B0ADA8;
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+  .tag {
+    padding: 6px 16px;
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 2px;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(201,168,76,0.06);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 80px 48px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--white);
+    margin-bottom: 40px;
+    line-height: 1.2;
+  }
+
+  /* ── TRAYECTORIA ── */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 160px 1px 1fr;
+    gap: 0 32px;
+    padding: 32px 0;
+    position: relative;
+  }
+  .timeline-item:not(:last-child) {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .timeline-date {
+    font-size: 0.78rem;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding-top: 4px;
+    text-align: right;
+  }
+  .timeline-divider {
+    width: 1px;
+    background: rgba(201,168,76,0.25);
+    position: relative;
+  }
+  .timeline-divider::before {
+    content: '';
+    position: absolute;
+    top: 6px; left: 50%;
+    transform: translateX(-50%);
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+  .timeline-body { padding-left: 0; }
+  .timeline-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .timeline-body p {
+    font-size: 0.88rem;
+    color: #9A9890;
+    line-height: 1.7;
+  }
+
+  /* ── SERVICIOS CARDS ── */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .card {
+    background: var(--dark);
+    border: 1px solid rgba(201,168,76,0.12);
+    padding: 32px 28px;
+    border-radius: 2px;
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--gold);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease;
+  }
+  .card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-3px); }
+  .card:hover::before { transform: scaleY(1); }
+  .card-number {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .card p { font-size: 0.85rem; color: var(--gray); line-height: 1.7; }
+
+  /* ── ECOSISTEMA ── */
+  .ecosystem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .eco-card {
+    background: var(--dark);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 28px;
+    border-radius: 2px;
+  }
+  .eco-card.featured {
+    grid-column: span 2;
+    border-color: rgba(201,168,76,0.25);
+    background: linear-gradient(135deg, var(--dark) 0%, #1f1a10 100%);
+  }
+  .eco-status {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 2px;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .status-active { background: rgba(201,168,76,0.15); color: var(--gold); }
+  .status-build  { background: rgba(100,160,255,0.12); color: #88AAEE; }
+  .status-pause  { background: rgba(150,150,150,0.12); color: #888; }
+  .eco-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+  .eco-card p { font-size: 0.83rem; color: var(--gray); line-height: 1.65; }
+
+  /* ── FORMACIÓN ── */
+  .formation-list { display: flex; flex-direction: column; gap: 20px; }
+  .formation-item {
+    display: flex; align-items: flex-start; gap: 20px;
+    padding: 24px;
+    background: var(--dark);
+    border-left: 3px solid var(--gold);
+  }
+  .formation-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .formation-item h4 {
+    font-size: 0.95rem;
+    color: var(--white);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .formation-item p { font-size: 0.83rem; color: var(--gray); }
+
+  /* ── FILOSOFÍA ── */
+  .quote-block {
+    border-left: 4px solid var(--gold);
+    padding: 28px 36px;
+    background: rgba(201,168,76,0.04);
+    margin-bottom: 24px;
+  }
+  .quote-block p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--light);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* ── CONTACTO ── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .contact-item {
+    background: var(--dark);
+    border: 1px solid rgba(201,168,76,0.12);
+    padding: 24px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .contact-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .contact-value { font-size: 0.95rem; color: var(--light); }
+
+  /* ── QR PLACEHOLDER ── */
+  .qr-section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 60px 48px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+  .qr-box {
+    width: 140px; height: 140px;
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: rgba(201,168,76,0.04);
+    gap: 8px;
+  }
+  .qr-box svg { opacity: 0.7; }
+  .qr-box span { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+  .qr-text h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .qr-text p { font-size: 0.85rem; color: var(--gray); line-height: 1.7; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 40px 48px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.75rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+  }
+  footer span { color: var(--gold); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 4px 1fr; padding: 100px 24px 60px; gap: 28px; }
+    section { padding: 60px 24px; }
+    .timeline-item { grid-template-columns: 1fr; gap: 8px; }
+    .timeline-date { text-align: left; }
+    .timeline-divider { display: none; }
+    .ecosystem-grid { grid-template-columns: 1fr; }
+    .eco-card.featured { grid-column: span 1; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .qr-section { flex-direction: column; padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Andrea Montes</div>
+  <ul class="nav-links">
+    <li><a href="#trayectoria">Trayectoria</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#ecosistema">Ecosistema</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-line fade-up"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow fade-up">Portafolio Profesional · 2025–2026</p>
+    <h1 class="hero-name fade-up delay-1">Andrea<br><span>Montes.</span></h1>
+    <p class="hero-title fade-up delay-2">Estratega · Consultora · Co-Directora de Lógica de Capital</p>
+    <p class="hero-bio fade-up delay-3">
+      Contadora Pública en formación (UBA), Maestra de Nivel Inicial y arquitecta de un ecosistema de negocios que fusiona educación financiera, tecnología y capital humano. Co-directora del holding Lógica de Capital y consultora activa en empleabilidad premium en LinkedIn.
+    </p>
+    <div class="hero-tags fade-up delay-3">
+      <span class="tag">Ingeniería de Perfil</span>
+      <span class="tag">Estrategia de Negocios</span>
+      <span class="tag">Educación Financiera</span>
+      <span class="tag">Modelo Centauro IA</span>
+      <span class="tag">Contaduría Pública</span>
+    </div>
+  </div>
+</div>
+
+<!-- TRAYECTORIA -->
+<section id="trayectoria">
+  <p class="section-label">Recorrido</p>
+  <h2 class="section-title">Del caos operativo<br>a la ingeniería sistémica</h2>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-date">Etapa inicial</div>
+      <div class="timeline-divider"></div>
+      <div class="timeline-body">
+        <h3>Gestión empírica y primeras preguntas</h3>
+        <p>Administración de "Sabor a Ti" bajo dinámica de mercado masivo. Primera exposición a la tensión entre precio bajo y sostenibilidad real del negocio. Las preguntas de ese período apuntaban a herramientas de control inmediato.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">Feb 2026</div>
+      <div class="timeline-divider"></div>
+      <div class="timeline-body">
+        <h3>Quiebre filosófico: la premisa premium</h3>
+        <p>Adopción del principio "vender caro y rico". Rediseño de marca de Sabor a Ti. Estudio de modelos de acumulación (Rockefeller). Mudanza estratégica a Paso Morales para consolidar la base logística y habitacional del holding familiar.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">2026 — actual</div>
+      <div class="timeline-divider"></div>
+      <div class="timeline-body">
+        <h3>Soberanía intelectual: Lógica de Capital</h3>
+        <p>Pausa táctica de la producción gastronómica para proteger caja. Construcción del holding familiar. Lanzamiento de la consultoría de Ingeniería de Perfil en LinkedIn como motor de subsistencia de margen 100%. Inicio del canal "La Plata que No Ves" y del sistema de formación Centauro.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">Horizonte</div>
+      <div class="timeline-divider"></div>
+      <div class="timeline-body">
+        <h3>Contratos B2B y escala del equipo</h3>
+        <p>Certificación de Operadores Centauro. Primer contrato corporativo validado. Canal activo con audiencia orgánica. Graduación en Contaduría Pública (UBA) como cierre del ciclo académico y apertura del ciclo como CFO del holding.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <p class="section-label">Qué ofrezco</p>
+  <h2 class="section-title">Servicios activos</h2>
+  <div class="cards">
+
+    <div class="card">
+      <p class="card-number">Servicio 01</p>
+      <h3>Ingeniería de Perfil LinkedIn</h3>
+      <p>Auditoría y reescritura del CV y perfil de LinkedIn orientada a hitos de impacto real, no listados de tareas. Diseñada para profesionales que necesitan que su trayectoria hable por ellos ante reclutadores y clientes corporativos.</p>
+    </div>
+
+    <div class="card">
+      <p class="card-number">Servicio 02</p>
+      <h3>Paquete de Posicionamiento Integral</h3>
+      <p>CV optimizado + perfil LinkedIn reestructurado + carta de presentación de alto impacto. El combo de mayor retorno por hora dedicada para profesionales en búsqueda activa de posiciones premium.</p>
+    </div>
+
+    <div class="card">
+      <p class="card-number">Servicio 03</p>
+      <h3>Consultoría Corporativa B2B</h3>
+      <p>Paquete combinado para organizaciones: Ingeniería de Perfil del equipo clave + automatización de procesos con IA + estrategia de contenido para posicionamiento de marca empleadora en LinkedIn.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ECOSISTEMA -->
+<section id="ecosistema">
+  <p class="section-label">El holding</p>
+  <h2 class="section-title">Lógica de Capital:<br>el ecosistema</h2>
+  <div class="ecosystem-grid">
+
+    <div class="eco-card featured">
+      <span class="eco-status status-active">Motor principal</span>
+      <h3>Lógica de Capital</h3>
+      <p>Holding familiar de servicios intelectuales y educación financiera. Opera bajo dos capas: la Fábrica (incubadora interna de talento con el Modelo Centauro) y la Vidriera (canal público de YouTube). Lema: <em>Lo que no ves, te define.</em></p>
+    </div>
+
+    <div class="eco-card">
+      <span class="eco-status status-active">Activo</span>
+      <h3>La Plata que No Ves</h3>
+      <p>Canal de YouTube de finanzas personales para jóvenes argentinos. Metodología de Puentes Temporales: cada concepto financiero anclado en una historia humana del pasado.</p>
+    </div>
+
+    <div class="eco-card">
+      <span class="eco-status status-build">En construcción</span>
+      <h3>Sistema Centauro</h3>
+      <p>Programa de formación y certificación de Operadores que combinan criterio humano con herramientas de IA. Pago por misión cumplida, no por hora trabajada.</p>
+    </div>
+
+    <div class="eco-card">
+      <span class="eco-status status-pause">Pausa estratégica</span>
+      <h3>Sabor a Ti</h3>
+      <p>Proyecto gastronómico premium (congelados artesanales, conservas, catering). En pausa táctica para proteger caja durante la etapa de escala del holding intelectual.</p>
+    </div>
+
+    <div class="eco-card">
+      <span class="eco-status status-active">Activo</span>
+      <h3>Seño Andrea</h3>
+      <p>Servicio de acompañamiento educativo y tutorías particulares estructuradas para nivel primario.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FORMACIÓN -->
+<section id="formacion">
+  <p class="section-label">Formación</p>
+  <h2 class="section-title">Base académica</h2>
+  <div class="formation-list">
+    <div class="formation-item">
+      <div class="formation-icon">🎓</div>
+      <div>
+        <h4>Contador Público — UBA (en curso)</h4>
+        <p>Universidad de Buenos Aires. Formación en análisis contable, auditoría y administración financiera. Base técnica para el rol de CFO del holding familiar.</p>
+      </div>
+    </div>
+    <div class="formation-item">
+      <div class="formation-icon">🧠</div>
+      <div>
+        <h4>Psicología — UBA (en curso)</h4>
+        <p>Comprensión del comportamiento humano frente al dinero. Aplicado directamente en la metodología de contenido del canal y en la consultoría de empleabilidad.</p>
+      </div>
+    </div>
+    <div class="formation-item">
+      <div class="formation-icon">📚</div>
+      <div>
+        <h4>Maestra de Nivel Inicial</h4>
+        <p>Formación pedagógica activa. Capacidad de síntesis compleja y comunicación clara con audiencias no especializadas — el activo diferenciador central en educación financiera.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILOSOFÍA -->
+<section id="filosofia">
+  <p class="section-label">Principios</p>
+  <h2 class="section-title">Filosofía de trabajo</h2>
+
+  <div class="quote-block">
+    <p>"La Lógica de Capital consiste en saber mover los recursos disponibles hacia el sector de mayor rendimiento y menor riesgo según el contexto macroeconómico."</p>
+  </div>
+
+  <div class="quote-block">
+    <p>"No competimos contra la Inteligencia Artificial. Hacemos equipo con ella. La IA aporta la fuerza bruta; el humano aporta el criterio y la empatía."</p>
+  </div>
+
+  <div class="quote-block">
+    <p>"Todo concepto técnico tiene una historia humana detrás. Si no encontrás la historia, no encontraste el concepto todavía."</p>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <p class="section-label">Contacto</p>
+  <h2 class="section-title">Trabajemos juntos</h2>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <span class="contact-label">Ubicación</span>
+      <span class="contact-value">Paso Morales, Hurlingham — Buenos Aires, Argentina</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">LinkedIn</span>
+      <span class="contact-value">[EDITABLE: URL de perfil LinkedIn]</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Email</span>
+      <span class="contact-value">[EDITABLE: tu email]</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">WhatsApp / Consultas</span>
+      <span class="contact-value">[EDITABLE: número de contacto]</span>
+    </div>
+  </div>
+</section>
+
+<!-- QR PLACEHOLDER -->
+<div class="qr-section">
+  <div class="qr-box">
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="4" width="24" height="24" rx="1" stroke="#C9A84C" stroke-width="2" fill="none"/>
+      <rect x="10" y="10" width="12" height="12" fill="#C9A84C" rx="1"/>
+      <rect x="36" y="4" width="24" height="24" rx="1" stroke="#C9A84C" stroke-width="2" fill="none"/>
+      <rect x="42" y="10" width="12" height="12" fill="#C9A84C" rx="1"/>
+      <rect x="4" y="36" width="24" height="24" rx="1" stroke="#C9A84C" stroke-width="2" fill="none"/>
+      <rect x="10" y="42" width="12" height="12" fill="#C9A84C" rx="1"/>
+      <rect x="36" y="36" width="6" height="6" fill="#C9A84C" rx="1"/>
+      <rect x="46" y="36" width="6" height="6" fill="#C9A84C" rx="1"/>
+      <rect x="36" y="46" width="6" height="6" fill="#C9A84C" rx="1"/>
+      <rect x="46" y="46" width="6" height="6" fill="#C9A84C" rx="1"/>
+      <rect x="56" y="36" width="4" height="4" fill="#C9A84C" rx="1"/>
+      <rect x="56" y="56" width="4" height="4" fill="#C9A84C" rx="1"/>
+      <rect x="36" y="56" width="4" height="4" fill="#C9A84C" rx="1"/>
+    </svg>
+    <span>Tu QR acá</span>
+  </div>
+  <div class="qr-text">
+    <h4>Portafolio digital siempre disponible</h4>
+    <p>Una vez que este archivo esté publicado online (GitHub Pages, Netlify o cualquier hosting gratuito), generás el QR desde <strong>qr.io</strong> o <strong>qrcode-monkey.com</strong> y lo agregás acá. Se puede imprimir en tarjetas, incluir en el CV o compartir por WhatsApp en un toque.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><span>Andrea Montes</span> · Lógica de Capital · Buenos Aires, Argentina</p>
+  <p style="margin-top:8px; font-style:italic; color: #C9A84C;">Lo que no ves, te define.</p>
+</footer>
+
+</body>
+</html>
