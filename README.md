@@ -1,2 +1,2 @@
-# portafolio-andrea
-Portafolio profesional — Lógica de Capital
+# portfolio-andrea
+Portfolio profesional — Lógica de Capital
